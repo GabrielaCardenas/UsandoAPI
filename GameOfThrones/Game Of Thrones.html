@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Houses</title>
+    <style>
+        img
+        {
+            width: 23%;
+            height: 200px;
+            margin: 10px;
+            display: inline-block;
+        }
+        #contenido
+        {
+            background-color: aquamarine;
+            border-radius: 12px;
+            text-align: center;
+            width: 50%;
+            margin-left: 25%;
+            color: rgb(65, 60, 60);
+        }
+    </style>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("img").click(function(){
+                var respuesta=$(this).attr("id");
+                $("#titulo").html("<h1>House Details</h1>");
+                $.get("https://anapioficeandfire.com/api/houses/"+respuesta, function(res){
+                    var namehouse="";
+                    namehouse += "<h2>Name: </h2>";
+                    namehouse+="<p>"+res.name+"</p>";
+                    $("#name").html("<div>"+namehouse+"</div>");
+                    var wordshouse="";
+                    wordshouse += "<h2>Words: </h2>";
+                    wordshouse+="<p>"+res.words+"</p>";
+                    $("#words").html("<div>"+wordshouse+"</div>");
+                    var titleshouse="";
+                    titleshouse += "<h2>Titles: </h2>";
+                    titleshouse+="<p>"+res.titles[0]+", </p>";
+                    titleshouse+="<p>"+res.titles[1]+", </p>";
+                    titleshouse+="<p>"+res.titles[2]+".</p>";
+                    $("#titles").html("<div>"+titleshouse+"</div>"); 
+                }, "json");
+            })
+        })
+    </script>
+</head>
+<body>
+    <img src="baratheon.png" id="17">
+    <img src="lannister.jpg" id="229">
+    <img src="stark.jpg" id="362">
+    <img src="targaryen.jpg" id="378">
+    <div id="contenido">
+        <div id="titulo"></div>
+        <div id="name"></div>
+        <div id="words"></div>
+        <div id="titles"></div>
+    </div>
+</body>
+</html>
